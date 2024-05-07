@@ -31,20 +31,26 @@ def main_sector(
 ):
     if submitted:
         with st.spinner("Генерируется..."):
-            translator = Translator(from_lang="russian", to_lang="en")
-            translated_prompt = translator.translate(prompt)
-            result = replicate.run(
-                "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
-                input={
-                    "width": width,
-                    "height": height,
-                    "prompt": translated_prompt,
-                }
-            )
-            image = result[0]
+            try:
+                translator = Translator(from_lang="russian", to_lang="en")
+                translated_prompt = translator.translate(prompt)
+                try:
+                    result = replicate.run(
+                        "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
+                        input={
+                            "width": width,
+                            "height": height,
+                            "prompt": translated_prompt,
+                        }
+                    )
+                    image = result[0]
 
-            with st.container():
-                st.image(image, caption=f"{prompt} - {translated_prompt}")
+                    with st.container():
+                        st.image(image, caption=f"{prompt} - {translated_prompt}")
+                except Exception as e:
+                    st.text(f"Запрос не был обработан, перевод: {translated_prompt}, {e}")
+            except:
+                st.text("Ваш запрос был слишком сложным")
 
 
 def main():

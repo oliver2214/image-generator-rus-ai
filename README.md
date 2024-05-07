@@ -21,7 +21,13 @@
 5. Установите все зависимости:
    `pip install -r requirements.txt`
 
-6. Запустите сервер streamlit:
+6. Войдите и создайте API токен на https://replicate.com/, токен доступен по адресу https://replicate.com/account/api-tokens:
+   Пример токена: `r8_8YeVsjSieEVq6rrWWvzZbn4eY2zKfov24CEMI`
+
+7. Сохраните токен в директории проекта .streamlit/secrets.toml в формате:
+   `REPLICATE_API_TOKEN = "r8_8YeVsjSieEVq6rrWWvzZbn4eY2zKfov24CEMI"`
+
+8. Запустите сервер streamlit:
    `streamlit run main.py`
 
-7. Приложение будет доступно по адресу [localhost:8501](http://localhost:8501).
+9. Приложение будет доступно по адресу [localhost:8501](http://localhost:8501).
