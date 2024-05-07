@@ -1,5 +1,8 @@
 import streamlit as st
 import replicate
+from translate import Translator
+
+
 
 st.markdown("# :blue[AI Генератор изображений]")
 REPLICATE_API_TOKEN = st.secrets["REPLICATE_API_TOKEN"]
@@ -29,17 +32,20 @@ def main_sector(
 ):
     if submitted:
         with st.spinner("Генерируется..."):
+            translator = Translator(from_lang="russian", to_lang="en")
+            translated_prompt = translator.translate(prompt)
             result = replicate.run(
                 "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
                 input={
                     "width": width,
                     "height": height,
-                    "prompt": prompt,
+                    "prompt": translated_prompt,
                 }
             )
             image = result[0]
+
             with st.container():
-                st.image(image)
+                st.image(image, caption=f"{prompt} - {translated_prompt}")
 
 
 def main():
