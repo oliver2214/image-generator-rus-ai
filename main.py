@@ -3,7 +3,6 @@ import replicate
 from translate import Translator
 
 
-
 st.markdown("# :blue[AI Генератор изображений]")
 REPLICATE_API_TOKEN = st.secrets["REPLICATE_API_TOKEN"]
 
